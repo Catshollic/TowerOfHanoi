@@ -175,23 +175,49 @@ class ViewController: UIViewController {
     }//左の柱にオブジェクトがあったらその値を返す
     func searchCenterValue()->Int{//0であれば次の配列にいく
         var i:Int = 0
-        var search:Int! = 0
-        for i in 0..<blockNum{
+        var search:Int! = blockNum
+        var cantCount:Int = 0
+        while search == 3{
             if (ary[i][center] != 0) {
                 search = i
+                //println("[\(search)][center]は\(ary[i][center]) can move")
+                println("動かす値の場所は[\(search)][center]")
+            }else{
+                i++
+                println("can't move cantcount \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+                if cantCount == blockNum{
+                    search = blockNum
+                    println("\(search)なので移動できない")
+                }
             }
         }
         return search
+        
     }//真ん中の柱にオブジェクトがあったらその値を返す
     func searchRightValue()->Int{//0であれば次の配列にいく
         var i:Int = 0
-        var search:Int! = 0
-        for i in 0..<blockNum{
+        var search:Int! = blockNum
+        var cantCount:Int = 0
+        while search == 3{
             if (ary[i][right] != 0) {
                 search = i
+                //println("[\(search)][right]は\(ary[i][right]) can move")
+                println("動かす値の場所は[\(search)][right]")
+            }else{
+                i++
+                println("can't move cantcount \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+                if cantCount == blockNum{
+                    search = blockNum
+                    println("\(search)なので移動できない")
+                }
             }
         }
         return search
+        
     }//左の柱にオブジェクトがあったらその値を返す
 
     func checkCenterValue(){
@@ -219,10 +245,10 @@ class ViewController: UIViewController {
     
     func digCenter()->Int{ //左を下から掘って0(格納できる場所)の値があればその配列の値を（search)返す,searchがblockNumであるのあらば移動できない
         var i:Int = blockNum-1
-        var search:Int! = 0
+        var search:Int! = -1
         var cantCount:Int = 0
         
-        while search == 0{
+        while search == -1{
             if (ary[i][center] == 0) {
                 search = i
                 //println("[\(search)][center]は\(ary[i][center]) can move")
@@ -232,7 +258,7 @@ class ViewController: UIViewController {
                 println("can't move cantcount \(cantCount)")
                 cantCount++
                 //描画しない処理をする
-                if cantCount == blockNum{3
+                if cantCount == blockNum{
                     search = blockNum
                     println("\(search)なので移動できない")
                 }
@@ -242,42 +268,47 @@ class ViewController: UIViewController {
     }
     
     func digLeft()->Int{ //左を下から掘って0の値があればその配列の値を返す
-        var i:Int = 0
-        var search:Int! = 0
+        var i:Int = blockNum-1
+        var search:Int! = -1
         var cantCount:Int = 0
         
-        for(i = blockNum-1; i >= 0; i--){
+        while search == -1{
             if (ary[i][left] == 0) {
                 search = i
-                println("[\(search)][left]は\(ary[i][left]) can move")
+                //println("[\(search)][left]は\(ary[i][left]) can move")
+                println("格納できる場所は[\(search)][left]")
             }else{
+                i--
                 println("can't move cantcount \(cantCount)")
                 cantCount++
                 //描画しない処理をする
                 if cantCount == blockNum{
                     search = blockNum
-                    println("\(search)はエラーの値")
+                    println("\(search)なので移動できない")
                 }
             }
         }
         return search
     }
+
     func digRight()->Int{ //左を下から掘って0の値があればその配列の値を返す
-        var i:Int = 0
+        var i:Int = blockNum-1
         var search:Int! = 0
         var cantCount:Int = 0
         
-        for(i = blockNum-1; i >= 0; i--){
-            if (ary[i][left] == 0) {
+        while search == -1{
+            if (ary[i][right] == 0) {
                 search = i
-                println("[\(search)][right]は\(ary[i][right]) can move")
+                //println("[\(search)][right]は\(ary[i][right]) can move")
+                println("格納できる場所は[\(search)][right]")
             }else{
+                i--
                 println("can't move cantcount \(cantCount)")
                 cantCount++
                 //描画しない処理をする
                 if cantCount == blockNum{
                     search = blockNum
-                    println("\(search)はエラーの値")
+                    println("\(search)なので移動できない")
                 }
             }
         }
@@ -291,18 +322,28 @@ class ViewController: UIViewController {
         printAry()
     }
     func moveLeftRight(){ //左から右に動かす関数
+        ary[digRight()][right] = ary[searchLeftValue()][left]
+        ary[searchLeftValue()][left] = 0
         printAry()
     }
     func moveCenterLeft(){ //真ん中から左へ動かす関数
+        ary[digLeft()][left] = ary[searchCenterValue()][center]
+        ary[searchCenterValue()][center] = 0
         printAry()
         }
     func moveCenterRight(){ //真ん中から右に動かす関数
+        ary[digRight()][right] = ary[searchCenterValue()][center]
+        ary[searchCenterValue()][center] = 0
         printAry()
     }
     func moveRightLeft(){ //右から左に動かす関数
+        ary[digLeft()][left] = ary[searchRightValue()][right]
+        ary[searchRightValue()][right] = 0
         printAry()
     }
     func moveRightCenter(){ //右から真ん中に動かす関数
+        ary[digCenter()][center] = ary[searchRightValue()][right]
+        ary[searchRightValue()][right] = 0
         printAry()
     }
     
@@ -342,8 +383,8 @@ class ViewController: UIViewController {
         //button1を生成
         btn1 = UIButton()//button作成
         btn1.tag = 1//buttonのtag設定
-        btn1.frame = CGRectMake(80,30,100,30)//buttonの場所
-        btn1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:1.0)//buttonの背景
+        btn1.frame = CGRectMake(40,30,140,250)//buttonの場所
+        btn1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:0.1)//buttonの背景
         btn1.layer.masksToBounds = true
         btn1.setTitle("btn1", forState: UIControlState.Normal)
         btn1.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
@@ -353,8 +394,8 @@ class ViewController: UIViewController {
         //button2を生成
         btn2 = UIButton()
         btn2.tag = 2
-        btn2.frame = CGRectMake(280,30,100,30)
-        btn2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:1.0)
+        btn2.frame = CGRectMake(230,30,140,250)
+        btn2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:0.1)
         btn2.layer.masksToBounds = true
         btn2.setTitle("btn2",forState:UIControlState.Normal)
         btn2.setTitleColor(UIColor.blueColor(),forState: UIControlState.Normal)
@@ -364,8 +405,8 @@ class ViewController: UIViewController {
         //button3を生成
         btn3 = UIButton()
         btn3.tag = 3
-        btn3.frame = CGRectMake(480,30,100,30)
-        btn3.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:1.0)
+        btn3.frame = CGRectMake(380,30,140,250)
+        btn3.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:0.1)
         btn3.layer.masksToBounds = true
         btn3.setTitle("btn3",forState:UIControlState.Normal)
         btn3.setTitleColor(UIColor.redColor(),forState: UIControlState.Normal)

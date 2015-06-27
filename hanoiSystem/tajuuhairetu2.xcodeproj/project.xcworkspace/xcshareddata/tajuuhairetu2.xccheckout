@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>BAA9585F-1372-4627-A02D-F27E4DCC967B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>tajuuhairetu2</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>591E9DE42D2BEEFD8F06A2887A257FB5A43D0945</key>
+		<string>https://github.com/Saki-Hit-Out/TowerOfHanoi.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>hanoiSystem/tajuuhairetu2.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>591E9DE42D2BEEFD8F06A2887A257FB5A43D0945</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/Saki-Hit-Out/TowerOfHanoi.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>591E9DE42D2BEEFD8F06A2887A257FB5A43D0945</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>591E9DE42D2BEEFD8F06A2887A257FB5A43D0945</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Git</string>
+		</dict>
+	</array>
+</dict>
+</plist>
