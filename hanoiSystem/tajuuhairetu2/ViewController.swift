@@ -152,9 +152,9 @@ class ViewController: UIViewController {
     
     func searchLeftValue()->Int{//0であれば次の配列にいく
         var i:Int = 0
-        var search:Int! = blockNum
+        var search:Int! = -1
         var cantCount:Int = 0
-        while search == 3{
+        while search == -1{
             if (ary[i][left] != 0) {
                 search = i
                 //println("[\(search)][left]は\(ary[i][left]) can move")
@@ -175,9 +175,9 @@ class ViewController: UIViewController {
     }//左の柱にオブジェクトがあったらその値を返す
     func searchCenterValue()->Int{//0であれば次の配列にいく
         var i:Int = 0
-        var search:Int! = blockNum
+        var search:Int! = -1
         var cantCount:Int = 0
-        while search == 3{
+        while search == -1{
             if (ary[i][center] != 0) {
                 search = i
                 //println("[\(search)][center]は\(ary[i][center]) can move")
@@ -198,9 +198,9 @@ class ViewController: UIViewController {
     }//真ん中の柱にオブジェクトがあったらその値を返す
     func searchRightValue()->Int{//0であれば次の配列にいく
         var i:Int = 0
-        var search:Int! = blockNum
+        var search:Int! = -1
         var cantCount:Int = 0
-        while search == 3{
+        while search == -1{
             if (ary[i][right] != 0) {
                 search = i
                 //println("[\(search)][right]は\(ary[i][right]) can move")
@@ -293,7 +293,7 @@ class ViewController: UIViewController {
 
     func digRight()->Int{ //左を下から掘って0の値があればその配列の値を返す
         var i:Int = blockNum-1
-        var search:Int! = 0
+        var search:Int! = -1
         var cantCount:Int = 0
         
         while search == -1{
@@ -317,38 +317,87 @@ class ViewController: UIViewController {
 
     //move
     func moveLeftCenter(){ //左から真ん中へ動かす関数
-        ary[digCenter()][center] = ary[searchLeftValue()][left]
-        ary[searchLeftValue()][left] = 0
-        printAry()
-    }
-    func moveLeftRight(){ //左から右に動かす関数
-        ary[digRight()][right] = ary[searchLeftValue()][left]
-        ary[searchLeftValue()][left] = 0
-        printAry()
-    }
-    func moveCenterLeft(){ //真ん中から左へ動かす関数
-        ary[digLeft()][left] = ary[searchCenterValue()][center]
-        ary[searchCenterValue()][center] = 0
-        printAry()
+        if digCenter() == blockNum-1{//もし真ん中の最底辺であれば
+            ary[digCenter()][center] = ary[searchLeftValue()][left]
+            ary[searchLeftValue()][left] = 0
+        }else if ary[digCenter()+1][center]>ary[searchLeftValue()][left]{ //
+                ary[digCenter()][center] = ary[searchLeftValue()][left]
+                ary[searchLeftValue()][left] = 0
+                printAry()
+        }else{
+            println("cannot move")
         }
-    func moveCenterRight(){ //真ん中から右に動かす関数
-        ary[digRight()][right] = ary[searchCenterValue()][center]
-        ary[searchCenterValue()][center] = 0
-        printAry()
+        
     }
-    func moveRightLeft(){ //右から左に動かす関数
-        ary[digLeft()][left] = ary[searchRightValue()][right]
-        ary[searchRightValue()][right] = 0
-        printAry()
-    }
-    func moveRightCenter(){ //右から真ん中に動かす関数
-        ary[digCenter()][center] = ary[searchRightValue()][right]
-        ary[searchRightValue()][right] = 0
+    
+    func moveLeftRight(){ //左から右に動かす関数
+        if digRight() == blockNum-1{
+            ary[digRight()][right] = ary[searchLeftValue()][left]
+            ary[searchLeftValue()][left] = 0
+        }else if ary[digRight()+1][right]>ary[searchLeftValue()][left]{
+                    ary[digRight()][right] = ary[searchLeftValue()][left]
+                    ary[searchLeftValue()][left] = 0
+                    printAry()
+        }else{
+            println("cannot move")
+        }
         printAry()
     }
     
-
-
+    func moveCenterLeft(){ //真ん中から左へ動かす関数
+        if digLeft() == blockNum-1{
+            ary[digLeft()][left] = ary[searchCenterValue()][center]
+            ary[searchCenterValue()][center] = 0
+        }else if ary[digLeft()+1][left]>ary[searchCenterValue()][center]{
+                ary[digLeft()][left] = ary[searchCenterValue()][center]
+                ary[searchCenterValue()][center] = 0
+                printAry()
+        }else{
+            println("cannot move")
+        }
+        printAry()
+    }
+    
+    func moveCenterRight(){ //真ん中から右に動かす関数
+        if digRight() == blockNum-1{
+        ary[digRight()][right] = ary[searchCenterValue()][center]
+        ary[searchCenterValue()][center] = 0
+        }else if ary[digRight()+1][right]>ary[searchCenterValue()][center]{
+            ary[digLeft()][left] = ary[searchCenterValue()][center]
+            ary[searchCenterValue()][center] = 0
+            printAry()
+        }else{
+            println("cannot move")
+        }
+        printAry()
+    }
+    
+    func moveRightLeft(){ //右から左に動かす関数
+        if digLeft() == blockNum-1{
+            ary[digLeft()][left] = ary[searchRightValue()][right]
+            ary[searchRightValue()][right] = 0
+        }else if ary[digLeft()+1][left]>ary[searchRightValue()][right]{
+                ary[digLeft()][left] = ary[searchRightValue()][right]
+                ary[searchRightValue()][right] = 0
+                printAry()
+        }else{
+            println("cannot move")
+        }
+        printAry()
+    }
+    func moveRightCenter(){ //右から真ん中に動かす関数
+        if digCenter() == blockNum-1{
+        ary[digCenter()][center] = ary[searchRightValue()][right]
+        ary[searchRightValue()][right] = 0
+        
+        }else if ary[digCenter()+1][center]>ary[searchRightValue()][right]{
+                    ary[digCenter()][center] = ary[searchRightValue()][right]
+                    ary[searchRightValue()][right] = 0
+        }else{
+            println("cannot move")
+        }
+    printAry()
+    }
 
     func setTitleBtn(){
         if pushBtn1 == true{
