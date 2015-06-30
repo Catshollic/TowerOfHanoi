@@ -30,16 +30,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
     
-    func printAry(){
-        for i in 0...2 {
-            for j in 0...2 {
-                print("\(ary[i][j])")
-            }
-            println()
-            
-        }
-        println("-----------------------------")
-    }
+
     
     internal func btn1(sender:UIButton){
         btn1Action()
@@ -327,6 +318,7 @@ class ViewController: UIViewController {
         }else{
             println("cannot move")
         }
+        printAry()
         
     }
     
@@ -363,7 +355,7 @@ class ViewController: UIViewController {
         ary[digRight()][right] = ary[searchCenterValue()][center]
         ary[searchCenterValue()][center] = 0
         }else if ary[digRight()+1][right]>ary[searchCenterValue()][center]{
-            ary[digLeft()][left] = ary[searchCenterValue()][center]
+            ary[digRight()][right] = ary[searchCenterValue()][center]
             ary[searchCenterValue()][center] = 0
             printAry()
         }else{
@@ -464,7 +456,22 @@ class ViewController: UIViewController {
         
         return ("Button set.")
     }
-    
+    func printAry(){
+        for i in 0...2 {
+            for j in 0...2 {
+                print("\(ary[i][j])")
+            }
+            println()
+            
+        }
+        println("-----------------------------")
+        if ary[0][center] == 1 && ary[1][center] == 2 && ary[2][center] == 3{
+        println("good-bye world!")
+        }
+        if ary[0][right] == 1 && ary[1][right] == 2 && ary[2][right] == 3{
+        println("good-bye world!")
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
