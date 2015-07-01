@@ -28,7 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		C842342A1B273CC6003A55B1 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawView.swift; sourceTree = "<group>"; };
+		C842342A1B273CC6003A55B1 /* DrawView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DrawView.swift; path = ../DrawView.swift; sourceTree = "<group>"; };
 		C8B5D8DF1B27304800DB1D9F /* draw2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = draw2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C8B5D8E31B27304800DB1D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B5D8E41B27304800DB1D9F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,7 +64,6 @@
 		C8B5D8D61B27304800DB1D9F = {
 			isa = PBXGroup;
 			children = (
-				C842342A1B273CC6003A55B1 /* DrawView.swift */,
 				C8B5D9061B2737DE00DB1D9F /* CoreGraphics.framework */,
 				C8B5D8E11B27304800DB1D9F /* draw2 */,
 				C8B5D8F71B27304800DB1D9F /* draw2Tests */,
@@ -89,6 +88,7 @@
 				C8B5D8E81B27304800DB1D9F /* Main.storyboard */,
 				C8B5D8EB1B27304800DB1D9F /* Images.xcassets */,
 				C8B5D8ED1B27304800DB1D9F /* LaunchScreen.xib */,
+				C842342A1B273CC6003A55B1 /* DrawView.swift */,
 				C8B5D8E21B27304800DB1D9F /* Supporting Files */,
 			);
 			path = draw2;

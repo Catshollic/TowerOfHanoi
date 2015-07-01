@@ -11,43 +11,39 @@ class ViewController: UIViewController {
     private var btn1: UIButton!
     private var btn2: UIButton!
     private var btn3: UIButton!
-    var rect_X:Int!
-    var rect_Y:Int!
-    let rect_Xnum:[[Int]] = [[55,255,455],[80,280,480]]// <- 255,455,655 ->
-    let rect_Ynum:[Int] = [320,290]// ^ 320,290v
+    var rectX:Int!
+    var rectY:Int!
+    let rect1num:[Int] = [100,300,500]
+    let rect2num:[Int] = [80,280,480]
+    let rect3num:[Int] = [55,255,455]
+    let rectYnum:[Int] = [260,290,320]//[0][1][2]
     var rect1 = UIView()
     var rect2 = UIView()
     var rect3 = UIView()
     var pushBtn1:Bool! = false
     var pushBtn2:Bool! = false
     var pushBtn3:Bool! = false
+    var ary:[[Int]] = [[1,0,0]
+                      ,[2,0,0]
+                      ,[3,0,0]]
+    var count:Int = 1
+    let left:Int! = 0
+    let center:Int! = 1
+    let right:Int! = 2
+    let blockNum:Int! = 3
+    //var digRightValue:Int! = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
 
         screenSize()
         println(screenSize())
         createBtn()
         println(createBtn())
+        printAry()
+        setRects()
 
-        //rect1を描画
-        rect1.frame = CGRectMake(55,320, 150, 30)
-        rect1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:1.0)
-        rect1.tag = 1
-        self.view.addSubview(rect1)
-        
-        //rect2描画
-        rect2.frame = CGRectMake(80,290,100,30)
-        rect2.backgroundColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
-        rect2.tag = 1
-        self.view.addSubview(rect2)
-        
-        //rect3描画
-        rect3.frame = CGRectMake(105,260,50,30)
-        rect3.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
-        rect3.tag = 1
-        self.view.addSubview(rect3)
     }
     
     internal func btn1(sender:UIButton){
@@ -55,14 +51,11 @@ class ViewController: UIViewController {
         setTitleBtn()
         checkPushBtns()
     }
-    
-    
     internal func btn2(sender:UIButton){
         btn2Action()
         setTitleBtn()
         checkPushBtns()
     }
-    
     internal func btn3(sender:UIButton){
         btn3Action()
         setTitleBtn()
@@ -71,30 +64,41 @@ class ViewController: UIViewController {
     
     
     //moveRect
-    func moveRect1(){
 
-        rect1.frame = CGRectMake(CGFloat(rect_X), CGFloat(rect_Y), 150, 30)
-        rect1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:1.0)
-        self.view.addSubview(rect1)
+    func moveRect1(){
+        rect1.frame = CGRectMake(CGFloat(rectX), CGFloat(rectY), 50, 30)//(105,260,50,30)
+        rect1.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:1.0)
+        //self.view.addSubview(rect3)
         //rect1.removeFromSuperview()
-        rect1.tag = 1
-        println(rect_X)
+        //rect1.tag = 1
+        println(rectX)
         self.view.addSubview(rect1)
         println("done moveRect1")
-    }
+        }
     func moveRect2(){
         
-        rect2.frame = CGRectMake(CGFloat(rect_X), CGFloat(rect_Y), 100, 30)
+        rect2.frame = CGRectMake(CGFloat(rectX), CGFloat(rectY), 100, 30)
         rect2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:1.0)
         self.view.addSubview(rect2)
         //rect1.removeFromSuperview()
         //rect2.tag = 1
-        println(rect_X)
+        println(rectX)
         self.view.addSubview(rect2)
         println("done moveRect2")
     }
-    
-    //btnAction
+    func moveRect3(){
+        
+        rect3.frame = CGRectMake(CGFloat(rectX), CGFloat(rectY), 150, 30)
+        rect3.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:1.0)
+        self.view.addSubview(rect3)
+        //rect3.removeFromSuperview()
+        //rect3.tag = 1
+        println(rectX)
+        self.view.addSubview(rect3)
+        println("done moveRect3")
+    }
+
+    //btn func
     func btn1Action(){
         if pushBtn1 == false && pushBtn2 == false && pushBtn3 == false{
             //全てのボタンの値がfalseの場合,ボタン1の値をtrueに
@@ -105,64 +109,16 @@ class ViewController: UIViewController {
         }else if pushBtn1 == false && pushBtn2 == true && pushBtn3 == false{
             //そうでなくてボタン2が押されていた場合,左に描画して元に戻す
             //FTF -> 2 -> 1
-            if rect2.tag == 2{
-                //rect2が左にいるとき真ん中に移す
-                if rect1.tag == 1{
-                    //rect1が真ん中にいるときrect1の上に描画
-                    rect_X = rect_Xnum[1][0]
-                    rect_Y = rect_Ynum[1]
-                    pushBtn2 = false
-                }else{
-                    //そうでないなら地面に描画
-                    rect_X = rect_Xnum[1][0]
-                    rect_Y = rect_Ynum[0]
-                    pushBtn2 = false
-                }
-                moveRect2()
-                rect2.tag = 1
-            }
-            if rect1.tag == 2 && pushBtn2 == true{
-                rect_X = rect_Xnum[0][0] //55へ
-                rect_Y = rect_Ynum[0]//320へ
-                moveRect1()
-                rect1.tag = 1
-                pushBtn2 = false
-            }
-            
-            
+            pushBtn2 = false
+            moveCenterLeft()
             
         }else if pushBtn1 == false && pushBtn2 == false && pushBtn3 == true{
             //そうでなくてボタン3が押されていた場合,右に描画して元に戻す
             //FFT ->  3 -> 1に
-            if rect2.tag == 3 {
-                //rect2が右にいるとき真ん中に移す
-                if rect1.tag == 1{
-                    //rect1が真ん中にいるときrect1の上に描画
-                    rect_X = rect_Xnum[1][0]
-                    rect_Y = rect_Ynum[1]
-                    pushBtn3 = false
-                }else{
-                    //そうでないなら地面に描画
-                    rect_X = rect_Xnum[1][0]
-                    rect_Y = rect_Ynum[0]
-                    pushBtn3 = false
-                }
-                moveRect2()
-                rect2.tag = 1
-            }
-            if rect1.tag == 3 && pushBtn3 == true{
-                rect_X = rect_Xnum[0][0]
-                rect_Y = rect_Ynum[0]//320へ
-                moveRect1()
-                rect1.tag = 1
-                pushBtn3 = false
-            }
-            
-            
-        }else{//それ意外だった場合初期化する
-            pushBtn1 = false
-            pushBtn2 = false
             pushBtn3 = false
+            moveRightLeft()
+        }else{//それ意外だった場合初期化する
+            allBtnReset()
         }
         
     }
@@ -177,60 +133,14 @@ class ViewController: UIViewController {
             
         }else if pushBtn1 == true && pushBtn2 == false && pushBtn3 == false{
             //TFF -> 1 -> 2 に
-            if rect2.tag == 1{
-                //rect2が左にいるとき真ん中に移す
-                if rect1.tag == 2{
-                    //rect1が真ん中にいるときrect1の上に描画
-                    rect_X = rect_Xnum[1][1]
-                    rect_Y = rect_Ynum[1]
-                    pushBtn1 = false
-                }else{
-                    //そうでないなら地面に描画
-                    rect_X = rect_Xnum[1][1]
-                    rect_Y = rect_Ynum[0]
-                    pushBtn1 = false
-                }
-                moveRect2()
-                rect2.tag = 2
-            }
-            if rect1.tag == 1 && pushBtn1 == true{
-                rect_X = rect_Xnum[0][1] //55へ
-                rect_Y = rect_Ynum[0]//320へ
-                moveRect1()
-                rect1.tag = 2
-                pushBtn1 = false
-            }
-            
-        }else if pushBtn1 == false && pushBtn2 == false && pushBtn3 == true{
-            
-            //FFT ->  3 -> 2に
-            if rect2.tag == 3 {
-                //rect2が右にいるとき真ん中に移す
-                if rect1.tag == 2{
-                    //rect1が真ん中にいるときrect1の上に描画
-                    rect_X = rect_Xnum[1][1]
-                    rect_Y = rect_Ynum[1]
-                    pushBtn3 = false
-                }else{
-                    //そうでないなら地面に描画
-                    rect_X = rect_Xnum[1][1]
-                    rect_Y = rect_Ynum[0]
-                    pushBtn3 = false
-                }
-                moveRect2()
-                rect2.tag = 2
-            }
-            if rect1.tag == 3 && pushBtn3 == true{
-                rect_X = rect_Xnum[0][1]
-                rect_Y = rect_Ynum[0]//320へ
-                moveRect1()
-                rect1.tag = 2
-                pushBtn3 = false
-            }
-        }else{
             pushBtn1 = false
-            pushBtn2 = false
+            moveLeftCenter()
+        }else if pushBtn1 == false && pushBtn2 == false && pushBtn3 == true{
             pushBtn3 = false
+            //FFT ->  3 -> 2に
+            moveRightCenter()
+        }else{
+            allBtnReset()
         }
     }
     func btn3Action(){
@@ -243,77 +153,436 @@ class ViewController: UIViewController {
         }else if pushBtn1 == true && pushBtn2 == false && pushBtn3 == false{
             //そうでなくてボタン1が押されていた場合,真ん中に描画して元に戻す
             // TFF  1 -> 3
-            if rect2.tag == 1{
-                //rect2が左にいるとき右に移す
-                if rect1.tag == 3{
-                    //rect1が右にいるときrect1の上に描画
-                    rect_X = rect_Xnum[1][2]
-                    rect_Y = rect_Ynum[1]
-                    pushBtn1 = false
-                }else{
-                    //そうでないなら地面に描画
-                    rect_X = rect_Xnum[1][2]
-                    rect_Y = rect_Ynum[0]
-                    pushBtn1 = false
-                }
-                moveRect2()
-                rect2.tag = 3
-            }
-            if rect1.tag == 1 && pushBtn1 == true{
-                rect_X = rect_Xnum[0][2] //55へ
-                rect_Y = rect_Ynum[0]//320へ
-                moveRect1()
-                rect1.tag = 3
-                pushBtn1 = false
-            }
+            pushBtn1 = false
+            moveLeftRight()
         }else if pushBtn1 == false && pushBtn2 == true && pushBtn3 == false{
-            
+            pushBtn2 = false
             //そうでなくてボタン2が押されていた場合,真ん中に描画して元に戻す
             //FTF 2 -> 3
-            if rect2.tag == 2 {
-                //rect2が右にいるとき真ん中に移す
-                if rect1.tag == 3{
-                    //rect1が真ん中にいるときrect1の上に描画
-                    rect_X = rect_Xnum[1][2]
-                    rect_Y = rect_Ynum[1]
-                    pushBtn2 = false
-                }else{
-                    //そうでないなら地面に描画
-                    rect_X = rect_Xnum[1][2]
-                    rect_Y = rect_Ynum[0]
-                    pushBtn2 = false
+            moveCenterRight()
+        }else{
+            allBtnReset()
+        }
+    }
+    
+    
+    func searchLeftValue()->Int{//0であれば次の配列にいく
+        var i:Int = 0
+        var search:Int! = -1
+        var cantCount:Int = 0
+        while search == -1{
+            if (ary[i][left] != 0) {
+                search = i
+                //println("[\(search)][left]は\(ary[i][left]) can move")
+                println("動かす値の場所は[\(search)][left]")
+            }else{
+                i++
+                println("can't move cantcount leftValue \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+                if cantCount == blockNum{
+                    search = blockNum
+                    println("\(search)なので移動できない")
                 }
-                moveRect2()
-                rect2.tag = 3
             }
-            if rect1.tag == 2 && pushBtn2 == true{
-                rect_X = rect_Xnum[0][2]
-                rect_Y = rect_Ynum[0]//320へ
-                moveRect1()
-                rect1.tag = 3
-                pushBtn2 = false
+        }
+        return search
+        
+    }//左の柱にオブジェクトがあったらその値を返す
+    func searchCenterValue()->Int{//0であれば次の配列にいく
+        var i:Int = 0
+        var search:Int! = -1
+        var cantCount:Int = 0
+        while search == -1{
+            if (ary[i][center] != 0) {
+                search = i
+                //println("[\(search)][center]は\(ary[i][center]) can move")
+                println("動かす値の場所は[\(search)][center]")
+            }else{
+                i++
+                println("can't move cantcount \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+                if cantCount == blockNum{
+                    search = blockNum
+                    println("\(search)なので移動できない")
+                }
             }
-            
-            
+        }
+        return search
+        
+    }//真ん中の柱にオブジェクトがあったらその値を返す
+    func searchRightValue()->Int{//0であれば次の配列にいく
+        var i:Int = 0
+        var search:Int! = -1
+        var cantCount:Int = 0
+        while search == -1{
+            if (ary[i][right] != 0) {
+                search = i
+                //println("[\(search)][right]は\(ary[i][right]) can move")
+                println("動かす値の場所は[\(search)][right]")
+            }else{
+                i++
+                println("can't move cantcount \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+                if cantCount == blockNum{
+                    search = blockNum
+                    println("\(search)なので移動できない")
+                }
+            }
+        }
+        return search
+        
+    }//左の柱にオブジェクトがあったらその値を返す
+    
+    func checkCenterValue(){
+        var i:Int = 0
+        while(blockNum != i){
+            //println("\(i+1)列目 = \(ary[i][center]) ")
+            i++
+        }
+        
+    }//真ん中の柱に何があるかをチェックする
+    func checkLeftValue(){
+        var i:Int = 0
+        while(blockNum != i){
+            //println("\(i+1)列目 = \(ary[i][left]) ")
+            i++
+        }
+    }//左の柱に何があるかをチェックする
+    func checkRightValue(){
+        var i:Int = 0
+        while(blockNum != i){
+            println("\(i+1)列目 = \(ary[i][right]) ")
+            i++
+        }//右の柱に何があるかをチェックする
+    }//右の柱に何があるかをチェックする
+    
+    //dig func
+    func digCenter()->Int{ //左を下から掘って0(格納できる場所)の値があればその配列の値を（search)返す,searchがblockNumであるのあらば移動できない
+        var i:Int = blockNum-1
+        var search:Int! = -1
+        var cantCount:Int = 0
+        
+        while search == -1{
+            if (ary[i][center] == 0) {
+                search = i
+                //println("[\(search)][center]は\(ary[i][center]) can move")
+                println("格納できる場所は[\(search)][center]")
+            }else{
+                i--
+                println("can't move cantcount center \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+                if cantCount == blockNum{
+                    search = blockNum
+                    println("\(search)なので移動できない")
+                }
+            }
+        }
+        return search
+    }
+    func digLeft()->Int{ //左を下から掘って0の値があればその配列の値を返す
+        var i:Int = blockNum-1
+        var search:Int! = -1
+        var cantCount:Int = 0
+        
+        while search == -1{
+            if (ary[i][left] == 0) {
+                search = i
+                //println("[\(search)][left]は\(ary[i][left]) can move")
+                println("格納できる場所は[\(search)][left]")
+            }else{
+                i--
+                println("can't move cantcount \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+                if cantCount == blockNum{
+                    search = blockNum
+                    println("\(search)なので移動できない")
+                }
+            }
+        }
+        return search
+    }
+    func digRight()->Int{ //左を下から掘って0の値があればその配列の値を返す
+        var i:Int = blockNum-1
+        var search:Int! = -1
+        var cantCount:Int = 0
+        
+        while search == -1{
+            println(ary[i][right])
+            if (ary[i][right] == 0) {
+                //digRightValue = i
+                search = i
+                //println("[\(search)][right]は\(ary[i][right]) can move")
+                println("格納できる場所は[\(search)][right]")
+            }else{
+                i--
+                println("can't move cantcount \(cantCount)")
+                cantCount++
+                //描画しない処理をする
+//                if cantCount == blockNum{
+//                    search = blockNum
+//                    println("\(search)なので移動できない")
+//                }
+            }
+        }
+        return search
+    }
+    
+    //move func
+    func moveLeftCenter(){ //左から真ん中へ動かす関数
+        if digCenter() == blockNum-1{//もし真ん中の最底辺であれば
+            moveLeftCenterRect()
+            ary[digCenter()][center] = ary[searchLeftValue()][left]
+            ary[searchLeftValue()][left] = 0
+        }else if ary[digCenter()+1][center]>ary[searchLeftValue()][left]{
+            moveLeftCenterRect()
+            ary[digCenter()][center] = ary[searchLeftValue()][left]
+            ary[searchLeftValue()][left] = 0
             
         }else{
-            pushBtn1 = false
-            pushBtn2 = false
-            pushBtn3 = false
+            println("cannot move")
         }
+        printAry()
+        
+    }
+    func moveLeftRight(){ //左から右に動かす関数
+        if digRight() == blockNum-1{
+            moveLeftRightRect()
+            ary[digRight()][right] = ary[searchLeftValue()][left]
+            ary[searchLeftValue()][left] = 0
+        }else if ary[digRight()+1][right]>ary[searchLeftValue()][left]{
+            moveLeftRightRect()
+            ary[digRight()][right] = ary[searchLeftValue()][left]
+            ary[searchLeftValue()][left] = 0
+        }else{
+            println("cannot move")
+        }
+        printAry()
+    }
+    
+    func moveCenterLeft(){ //真ん中から左へ動かす関数
+        if digLeft() == blockNum-1{
+            moveCenterLeftRect()
+            ary[digLeft()][left] = ary[searchCenterValue()][center]
+            ary[searchCenterValue()][center] = 0
+        
+        }else if ary[digLeft()+1][left]>ary[searchCenterValue()][center]{
+            moveCenterLeftRect()
+            ary[digLeft()][left] = ary[searchCenterValue()][center]
+            ary[searchCenterValue()][center] = 0
+            }else{
+            println("cannot move")
+        }
+        printAry()
+    }
+    
+    func moveCenterRight(){ //真ん中から右に動かす関数
+        if digRight() == blockNum-1{
+            moveCenterRightRect()
+            ary[digRight()][right] = ary[searchCenterValue()][center]
+            ary[searchCenterValue()][center] = 0
+        }else if ary[digRight()+1][right]>ary[searchCenterValue()][center]{
+            moveCenterRightRect()
+            ary[digRight()][right] = ary[searchCenterValue()][center]
+            ary[searchCenterValue()][center] = 0
+        }else{
+        
+            println("cannot move")
+            }
+        printAry()
+        
+    }
+    func moveRightLeft(){ //右から左に動かす関数
+        if digLeft() == blockNum-1{
+            moveRightLeftRect()
+            ary[digLeft()][left] = ary[searchRightValue()][right]
+            ary[searchRightValue()][right] = 0
+        }else if ary[digLeft()+1][left]>ary[searchRightValue()][right]{
+            moveRightLeftRect()
+            ary[digLeft()][left] = ary[searchRightValue()][right]
+            ary[searchRightValue()][right] = 0
+        }else{
+            println("cannot move")
+        }
+        printAry()
+    }
+    func moveRightCenter(){ //右から真ん中に動かす関数
+        if digCenter() == blockNum-1{//真ん中が一番下なら
+            moveRightCenterRect()
+            ary[digCenter()][center] = ary[searchRightValue()][right]
+            ary[searchRightValue()][right] = 0
+            
+        }else if ary[digCenter()+1][center]>ary[searchRightValue()][right]{
+            moveRightCenterRect()
+            ary[digCenter()][center] = ary[searchRightValue()][right]
+            ary[searchRightValue()][right] = 0
+        }else{
+            println("cannot move")
+        }
+        printAry()
+    }
+
+    //let rect_Xnum:[[Int]] = [[55,255,455],[80,280,480],[100,300,500]]
+    //let rect_Ynum:[Int] = [320,290,260]// ^ 320,290,260
+    //moveRect
+    func moveLeftCenterRect(){
+        switch ary[searchLeftValue()][left]{
+            case 1:
+                rectX = rect1num[center]
+                rectY = rectYnum[digCenter()]
+                moveRect1()
+            case 2:
+                
+                rectX = rect2num[center]
+                rectY = rectYnum[digCenter()]
+                moveRect2()
+            case 3:
+                rectX = rect3num[center]
+                rectY = rectYnum[digCenter()]
+                moveRect3()
+            default:
+                break
+            }
+    }
+    func moveLeftRightRect(){//左から真ん中に四角を移動させる
+        println(ary[searchLeftValue()][left])
+        switch ary[searchLeftValue()][left]{//[0][center] == 1,[1][center] == 2,[2][center] == 3
+        case 1:
+            rectX = rect1num[right]
+            rectY = rectYnum[digRight()]
+            moveRect1()
+        case 2:
+            rectX = rect2num[right]
+            rectY = rectYnum[digRight()]
+            moveRect2()
+        case 3:
+            rectX = rect3num[right]
+            rectY = rectYnum[digRight()]
+            moveRect3()
+        default:
+            break
+        }
+    }
+    func moveCenterLeftRect(){
+        switch ary[searchCenterValue()][center]{
+        case 1:
+            rectX = rect1num[left]
+            rectY = rectYnum[digLeft()]
+            moveRect1()
+        case 2:
+            rectX = rect2num[left]
+            rectY = rectYnum[digLeft()]
+            moveRect2()
+        case 3:
+            rectX = rect3num[left]
+            rectY = rectYnum[digLeft()]
+            moveRect3()
+        default:
+            break
+        }
+    }
+    func moveCenterRightRect(){
+        switch ary[searchCenterValue()][center]{
+        case 1:
+            rectX = rect1num[right]
+            rectY = rectYnum[digRight()]
+            moveRect1()
+        case 2:
+            rectX = rect2num[right]
+            rectY = rectYnum[digRight()]
+            moveRect2()
+        case 3:
+            rectX = rect3num[right]
+            rectY = rectYnum[digRight()]
+            moveRect3()
+        default:
+            break
+        }
+    }
+    func moveRightCenterRect(){
+        switch ary[searchRightValue()][right]{
+        case 1:
+            rectX = rect1num[center]
+            rectY = rectYnum[digCenter()]
+            moveRect1()
+        case 2:
+            rectX = rect2num[center]
+            rectY = rectYnum[digCenter()]
+            moveRect2()
+        case 3:
+            rectX = rect3num[center]
+            rectY = rectYnum[digCenter()]
+            moveRect3()
+        default:
+            break
+        }
+    }
+    func moveRightLeftRect(){
+        switch ary[searchRightValue()][right]{
+        case 1:
+            rectX = rect1num[left]
+            rectY = rectYnum[digLeft()]
+            moveRect1()
+        case 2:
+            rectX = rect2num[left]
+            rectY = rectYnum[digLeft()]
+            moveRect2()
+        case 3:
+            rectX = rect3num[left]
+            rectY = rectYnum[digLeft()]
+            moveRect3()
+        default:
+            break
+        }
+    }
+    
+    //btnAllReset
+    func allBtnReset(){
+        pushBtn1 = false
+        pushBtn2 = false
+        pushBtn3 = false
     }
     
     //check func
     func checkPushBtns(){
-        print(" pushBtn1 == \(pushBtn1)")
-        print(" pushBtn2 ==\(pushBtn2)")
-        print(" pushBtn3 ==\(pushBtn3)")
-        print(" rect1.tag ==\(rect1.tag)")
-        print(" rect2.tag ==\(rect2.tag)")
-        println()
-        
+        //        print(" pushBtn1 == \(pushBtn1)")
+        //        print(" pushBtn2 ==\(pushBtn2)")
+        //        print(" pushBtn3 ==\(pushBtn3)")
+        //        println()
+        //        
     }
     
+    func printAry(){
+        for i in 0...2 {
+            for j in 0...2 {
+                print("\(ary[i][j])")
+            }
+            println()
+            
+        }
+        println("-----------------------------")
+        if ary[0][center] == 1 && ary[1][center] == 2 && ary[2][center] == 3{
+            println("good-bye world!")
+            createCover()
+        }
+        if ary[0][right] == 1 && ary[1][right] == 2 && ary[2][right] == 3{
+            println("good-bye world!")
+            createCover()
+        }
+        
+    }
+    func createCover(){
+        var cover = UIView()
+        cover.frame = CGRectMake(0,0,700, 500)
+        cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.1)
+        self.view.addSubview(cover)
+        
+    }
+
     
     //start func
     func setTitleBtn(){
@@ -336,12 +605,33 @@ class ViewController: UIViewController {
         }
 
     }
+    func setRects(){
+
+        //rect1描画
+        rect1.frame = CGRectMake(105,260,50,30)
+        rect1.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+        //rect1.tag = 1
+        self.view.addSubview(rect1)
+    
+        //rect2描画
+        rect2.frame = CGRectMake(80,290,100,30)
+        rect2.backgroundColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
+        //rect2.tag = 1
+        self.view.addSubview(rect2)
+
+        rect3.frame = CGRectMake(55,320, 150, 30)
+        rect3.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:1.0)
+        //rect1.tag = 1
+        self.view.addSubview(rect3)
+    
+        
+    }
     func createBtn()->String{
         //button1を生成
         btn1 = UIButton()//button作成
         btn1.tag = 1//buttonのtag設定
-        btn1.frame = CGRectMake(80,30,100,30)//buttonの場所
-        btn1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:1.0)//buttonの背景
+        btn1.frame = CGRectMake(40,30,190,320)//buttonの場所
+        btn1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:0.1)//buttonの背景
         btn1.layer.masksToBounds = true
         btn1.setTitle("btn1", forState: UIControlState.Normal)
         btn1.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
@@ -351,8 +641,8 @@ class ViewController: UIViewController {
         //button2を生成
         btn2 = UIButton()
         btn2.tag = 2
-        btn2.frame = CGRectMake(280,30,100,30)
-        btn2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:1.0)
+        btn2.frame = CGRectMake(240,30,190,320)
+        btn2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:0.1)
         btn2.layer.masksToBounds = true
         btn2.setTitle("btn2",forState:UIControlState.Normal)
         btn2.setTitleColor(UIColor.blueColor(),forState: UIControlState.Normal)
@@ -362,8 +652,8 @@ class ViewController: UIViewController {
         //button3を生成
         btn3 = UIButton()
         btn3.tag = 3
-        btn3.frame = CGRectMake(480,30,100,30)
-        btn3.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:1.0)
+        btn3.frame = CGRectMake(440,30,190,320)
+        btn3.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:0.1)
         btn3.layer.masksToBounds = true
         btn3.setTitle("btn3",forState:UIControlState.Normal)
         btn3.setTitleColor(UIColor.redColor(),forState: UIControlState.Normal)
