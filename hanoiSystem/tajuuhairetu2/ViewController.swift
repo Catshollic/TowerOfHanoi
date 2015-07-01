@@ -48,6 +48,7 @@ class ViewController: UIViewController {
         checkPushBtns()
     }
 
+    //btn func
     func btn1Action(){
         if pushBtn1 == false && pushBtn2 == false && pushBtn3 == false{
             //全てのボタンの値がfalseの場合,ボタン1の値をtrueに
@@ -234,6 +235,7 @@ class ViewController: UIViewController {
         }//右の柱に何があるかをチェックする
     }//右の柱に何があるかをチェックする
     
+    //dig func
     func digCenter()->Int{ //左を下から掘って0(格納できる場所)の値があればその配列の値を（search)返す,searchがblockNumであるのあらば移動できない
         var i:Int = blockNum-1
         var search:Int! = -1
@@ -257,7 +259,6 @@ class ViewController: UIViewController {
         }
         return search
     }
-    
     func digLeft()->Int{ //左を下から掘って0の値があればその配列の値を返す
         var i:Int = blockNum-1
         var search:Int! = -1
@@ -281,7 +282,6 @@ class ViewController: UIViewController {
         }
         return search
     }
-
     func digRight()->Int{ //左を下から掘って0の値があればその配列の値を返す
         var i:Int = blockNum-1
         var search:Int! = -1
@@ -306,7 +306,7 @@ class ViewController: UIViewController {
         return search
     }
 
-    //move
+    //move func
     func moveLeftCenter(){ //左から真ん中へ動かす関数
         if digCenter() == blockNum-1{//もし真ん中の最底辺であれば
             ary[digCenter()][center] = ary[searchLeftValue()][left]
@@ -321,7 +321,6 @@ class ViewController: UIViewController {
         printAry()
         
     }
-    
     func moveLeftRight(){ //左から右に動かす関数
         if digRight() == blockNum-1{
             ary[digRight()][right] = ary[searchLeftValue()][left]
@@ -335,7 +334,6 @@ class ViewController: UIViewController {
         }
         printAry()
     }
-    
     func moveCenterLeft(){ //真ん中から左へ動かす関数
         if digLeft() == blockNum-1{
             ary[digLeft()][left] = ary[searchCenterValue()][center]
@@ -349,7 +347,6 @@ class ViewController: UIViewController {
         }
         printAry()
     }
-    
     func moveCenterRight(){ //真ん中から右に動かす関数
         if digRight() == blockNum-1{
         ary[digRight()][right] = ary[searchCenterValue()][center]
@@ -363,7 +360,6 @@ class ViewController: UIViewController {
         }
         printAry()
     }
-    
     func moveRightLeft(){ //右から左に動かす関数
         if digLeft() == blockNum-1{
             ary[digLeft()][left] = ary[searchRightValue()][right]
@@ -391,6 +387,7 @@ class ViewController: UIViewController {
     printAry()
     }
 
+    //set Title
     func setTitleBtn(){
         if pushBtn1 == true{
             btn1.setTitle("Where", forState: UIControlState.Normal)
@@ -467,10 +464,20 @@ class ViewController: UIViewController {
         println("-----------------------------")
         if ary[0][center] == 1 && ary[1][center] == 2 && ary[2][center] == 3{
         println("good-bye world!")
+        createCover()
         }
         if ary[0][right] == 1 && ary[1][right] == 2 && ary[2][right] == 3{
         println("good-bye world!")
+        createCover()
         }
+        
+    }
+    func createCover(){
+        var cover = UIView()
+        cover.frame = CGRectMake(0,0,700, 500)
+        cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.1)
+        self.view.addSubview(cover)
+        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
