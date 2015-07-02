@@ -13,7 +13,7 @@ class ViewController: UIViewController {
     private var btn3: UIButton!
     var rectX:Int!
     var rectY:Int!
-    let rect1num:[Int] = [100,300,500]
+    let rect1num:[Int] = [105,305,505]
     let rect2num:[Int] = [80,280,480]
     let rect3num:[Int] = [55,255,455]
     let rectYnum:[Int] = [260,290,320]//[0][1][2]
@@ -31,19 +31,27 @@ class ViewController: UIViewController {
     let center:Int! = 1
     let right:Int! = 2
     let blockNum:Int! = 3
+    //
+    var cnt:Float = 0
+    var timeLbl:UILabel!
+    var timer :NSTimer!
+    //
+    var moveCountLbl:UILabel!
+    var moveCount:Int = 0
     //var digRightValue:Int! = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
-
+        
         screenSize()
         println(screenSize())
         createBtn()
         println(createBtn())
         printAry()
         setRects()
-
+        setMoveCount()
+        setTimer()
     }
     
     internal func btn1(sender:UIButton){
@@ -73,6 +81,7 @@ class ViewController: UIViewController {
         //rect1.tag = 1
         println(rectX)
         self.view.addSubview(rect1)
+        addMoveCount()
         println("done moveRect1")
         }
     func moveRect2(){
@@ -84,6 +93,7 @@ class ViewController: UIViewController {
         //rect2.tag = 1
         println(rectX)
         self.view.addSubview(rect2)
+        addMoveCount()
         println("done moveRect2")
     }
     func moveRect3(){
@@ -95,6 +105,7 @@ class ViewController: UIViewController {
         //rect3.tag = 1
         println(rectX)
         self.view.addSubview(rect3)
+        addMoveCount()
         println("done moveRect3")
     }
 
@@ -363,7 +374,6 @@ class ViewController: UIViewController {
         }
         printAry()
     }
-    
     func moveCenterLeft(){ //真ん中から左へ動かす関数
         if digLeft() == blockNum-1{
             moveCenterLeftRect()
@@ -379,7 +389,6 @@ class ViewController: UIViewController {
         }
         printAry()
     }
-    
     func moveCenterRight(){ //真ん中から右に動かす関数
         if digRight() == blockNum-1{
             moveCenterRightRect()
@@ -580,7 +589,11 @@ class ViewController: UIViewController {
         cover.frame = CGRectMake(0,0,700, 500)
         cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.1)
         self.view.addSubview(cover)
-        
+        //if timer.valid == true{
+            timer.invalidate()
+            //sender.setTitle("Start Timer",forState:UIControlState.Normal)
+        //}//sender.〜で値の受け渡しができる
+   
     }
 
     
@@ -635,7 +648,7 @@ class ViewController: UIViewController {
         btn1.layer.masksToBounds = true
         btn1.setTitle("btn1", forState: UIControlState.Normal)
         btn1.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
-        btn1.addTarget(self, action:"btn1:",forControlEvents: .TouchUpInside)///buttonに機能btn1をTouchUpInsideされた時に行う
+        btn1.addTarget(self, action:"btn1:",forControlEvents: .TouchUpInside)///buttonに機能btn1を
         self.view.addSubview(btn1)
         
         //button2を生成
@@ -672,7 +685,6 @@ class ViewController: UIViewController {
         println("\(screenHeight)")
         return "ScreenSize set."
     }
-    
     //screenSizeを取るclass
     class func screenSize() -> CGSize {
         let screenSize = UIScreen.mainScreen().bounds.size;
@@ -685,6 +697,47 @@ class ViewController: UIViewController {
     class func screenFrame() -> CGRect {
         return CGRectMake(0, 0, screenSize().width, screenSize().height)
     }
+    
+    func setMoveCount(){
+        moveCountLbl = UILabel(frame:CGRectMake(0,0,200,30))
+        moveCountLbl.backgroundColor = UIColor.blackColor()
+        moveCountLbl.layer.masksToBounds = true
+        moveCountLbl.layer.cornerRadius = 20.0
+        moveCountLbl.text = "moveCount:\(moveCount)"
+        moveCountLbl.textColor = UIColor.whiteColor()
+        moveCountLbl.shadowColor = UIColor.grayColor()
+        moveCountLbl.textAlignment = NSTextAlignment.Center
+        moveCountLbl.layer.position = CGPoint(x:self.view.bounds.width/4,y:10)
+        self.view.backgroundColor = UIColor.cyanColor()
+        self.view.addSubview(moveCountLbl)
+
+    }
+    func addMoveCount(){
+        moveCount += 1
+        moveCountLbl.text = ("moveCount:\(moveCount)")
+    }
+    
+    func setTimer(){
+        timeLbl = UILabel(frame:CGRectMake(0,0,200,30))
+        timeLbl.backgroundColor = UIColor.blackColor()
+        timeLbl.layer.masksToBounds = true
+        timeLbl.layer.cornerRadius = 20.0
+        timeLbl.text = "Time:\(cnt)"
+        timeLbl.textColor = UIColor.whiteColor()
+        timeLbl.shadowColor = UIColor.grayColor()
+        timeLbl.textAlignment = NSTextAlignment.Center
+        timeLbl.layer.position = CGPoint(x:self.view.bounds.width/2,y:10)
+        self.view.backgroundColor = UIColor.cyanColor()
+        self.view.addSubview(timeLbl)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:nil,repeats:true)
+    }
+    
+    func onUpdate(timer:NSTimer){
+        cnt += 0.1
+        let str = "Time:".stringByAppendingFormat("%.1f",cnt)
+        timeLbl.text = str
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
