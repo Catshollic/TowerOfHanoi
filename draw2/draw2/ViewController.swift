@@ -11,6 +11,7 @@ class ViewController: UIViewController {
     private var btn1: UIButton!
     private var btn2: UIButton!
     private var btn3: UIButton!
+    private var resetBtn: UIButton!
     var rectX:Int!
     var rectY:Int!
     let rect1num:[Int] = [105,305,505]
@@ -42,16 +43,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        
-        screenSize()
-        println(screenSize())
-        createBtn()
-        println(createBtn())
-        printAry()
-        setRects()
-        setMoveCount()
-        setTimer()
+        setAll()
     }
     
     internal func btn1(sender:UIButton){
@@ -586,8 +578,8 @@ class ViewController: UIViewController {
     }
     func createCover(){
         var cover = UIView()
-        cover.frame = CGRectMake(0,0,700, 500)
-        cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.1)
+        cover.frame = CGRectMake(0,30,700, 500)
+        cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.5)
         self.view.addSubview(cover)
         //if timer.valid == true{
             timer.invalidate()
@@ -596,6 +588,54 @@ class ViewController: UIViewController {
    
     }
 
+    func createBtn()->String{
+        //button1を生成
+        btn1 = UIButton()//button作成
+        btn1.tag = 1//buttonのtag設定
+        btn1.frame = CGRectMake(40,30,190,320)//buttonの場所
+        btn1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:0.1)//buttonの背景
+        btn1.layer.masksToBounds = true
+        btn1.setTitle("btn1", forState: UIControlState.Normal)
+        btn1.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
+        btn1.addTarget(self, action:"btn1:",forControlEvents: .TouchUpInside)///buttonに機能btn1を
+        self.view.addSubview(btn1)
+        
+        //button2を生成
+        btn2 = UIButton()
+        btn2.tag = 2
+        btn2.frame = CGRectMake(240,30,190,320)
+        btn2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:0.1)
+        btn2.layer.masksToBounds = true
+        btn2.setTitle("btn2",forState:UIControlState.Normal)
+        btn2.setTitleColor(UIColor.blueColor(),forState: UIControlState.Normal)
+        btn2.addTarget(self, action:"btn2:",forControlEvents: .TouchUpInside)//buttonに機能btn2をTouchUpInsideされた時に行う
+        self.view.addSubview(btn2)
+        
+        //button3を生成
+        btn3 = UIButton()
+        btn3.tag = 3
+        btn3.frame = CGRectMake(440,30,190,320)
+        btn3.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:0.1)
+        btn3.layer.masksToBounds = true
+        btn3.setTitle("btn3",forState:UIControlState.Normal)
+        btn3.setTitleColor(UIColor.redColor(),forState: UIControlState.Normal)
+        btn3.addTarget(self, action:"btn3:",forControlEvents: .TouchUpInside)
+        self.view.addSubview(btn3)
+        
+        resetBtn = UIButton()
+        resetBtn.frame = CGRectMake(0,0,200,30)
+        resetBtn.backgroundColor = UIColor.whiteColor()
+        resetBtn.layer.masksToBounds = true
+        resetBtn.setTitle("reset",forState:UIControlState.Normal)
+        resetBtn.setTitleColor(UIColor.redColor(),forState: UIControlState.Normal)
+        resetBtn.layer.position = CGPoint(x:self.view.bounds.width-100,y:10)
+        resetBtn.addTarget(self, action:"resetAll:",forControlEvents: .TouchUpInside)
+        self.view.addSubview(resetBtn)
+        
+        return ("Button set.")
+        
+        
+    }
     
     //start func
     func setTitleBtn(){
@@ -639,42 +679,34 @@ class ViewController: UIViewController {
     
         
     }
-    func createBtn()->String{
-        //button1を生成
-        btn1 = UIButton()//button作成
-        btn1.tag = 1//buttonのtag設定
-        btn1.frame = CGRectMake(40,30,190,320)//buttonの場所
-        btn1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:0.1)//buttonの背景
-        btn1.layer.masksToBounds = true
-        btn1.setTitle("btn1", forState: UIControlState.Normal)
-        btn1.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
-        btn1.addTarget(self, action:"btn1:",forControlEvents: .TouchUpInside)///buttonに機能btn1を
-        self.view.addSubview(btn1)
-        
-        //button2を生成
-        btn2 = UIButton()
-        btn2.tag = 2
-        btn2.frame = CGRectMake(240,30,190,320)
-        btn2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:0.1)
-        btn2.layer.masksToBounds = true
-        btn2.setTitle("btn2",forState:UIControlState.Normal)
-        btn2.setTitleColor(UIColor.blueColor(),forState: UIControlState.Normal)
-        btn2.addTarget(self, action:"btn2:",forControlEvents: .TouchUpInside)//buttonに機能btn2をTouchUpInsideされた時に行う
-        self.view.addSubview(btn2)
-        
-        //button3を生成
-        btn3 = UIButton()
-        btn3.tag = 3
-        btn3.frame = CGRectMake(440,30,190,320)
-        btn3.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:0.1)
-        btn3.layer.masksToBounds = true
-        btn3.setTitle("btn3",forState:UIControlState.Normal)
-        btn3.setTitleColor(UIColor.redColor(),forState: UIControlState.Normal)
-        btn3.addTarget(self, action:"btn3:",forControlEvents: .TouchUpInside)//buttonに機能btn3をTouchUpInsideされた時に行う
-        self.view.addSubview(btn3)
-
-        return ("Button set.")
+    func setValue(){
+        ary[0][0] = 1
+        ary[0][1] = 0
+        ary[0][2] = 0
+        ary[1][0] = 2
+        ary[1][1] = 0
+        ary[1][2] = 0
+        ary[2][0] = 3
+        ary[2][1] = 0
+        ary[2][2] = 0
     }
+    
+    func setAll(){
+        screenSize()
+        println(screenSize())
+        createBtn()
+        println(createBtn())
+        setValue()
+        printAry()
+        setRects()
+        setMoveCount()
+        setTimer()
+    }
+
+    func resetAll(sender:UIButton){
+        setAll()
+    }
+    
     func screenSize()->(String){
         // Screen Size の取得
         let screenWidth = self.view.bounds.width
@@ -710,7 +742,8 @@ class ViewController: UIViewController {
         moveCountLbl.layer.position = CGPoint(x:self.view.bounds.width/4,y:10)
         self.view.backgroundColor = UIColor.cyanColor()
         self.view.addSubview(moveCountLbl)
-
+        moveCount = 0
+        moveCountLbl.text = ("moveCount:\(moveCount)")
     }
     func addMoveCount(){
         moveCount += 1
@@ -729,6 +762,8 @@ class ViewController: UIViewController {
         timeLbl.layer.position = CGPoint(x:self.view.bounds.width/2,y:10)
         self.view.backgroundColor = UIColor.cyanColor()
         self.view.addSubview(timeLbl)
+        cnt = 0
+        timeLbl.text = ("\(timer)")
         timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:nil,repeats:true)
     }
     
@@ -738,11 +773,10 @@ class ViewController: UIViewController {
         timeLbl.text = str
     }
     
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
