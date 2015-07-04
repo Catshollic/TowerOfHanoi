@@ -15,6 +15,7 @@
 		C8B5D8EF1B27304800DB1D9F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C8B5D8ED1B27304800DB1D9F /* LaunchScreen.xib */; };
 		C8B5D8FB1B27304800DB1D9F /* draw2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8B5D8FA1B27304800DB1D9F /* draw2Tests.swift */; };
 		C8B5D9071B2737DE00DB1D9F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8B5D9061B2737DE00DB1D9F /* CoreGraphics.framework */; };
+		C8E78C531B4792C400F11EF8 /* yudati.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C8E78C521B4792C400F11EF8 /* yudati.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		C8B5D8F91B27304800DB1D9F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C8B5D8FA1B27304800DB1D9F /* draw2Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = draw2Tests.swift; sourceTree = "<group>"; };
 		C8B5D9061B2737DE00DB1D9F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		C8E78C521B4792C400F11EF8 /* yudati.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = yudati.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				C8B5D8EB1B27304800DB1D9F /* Images.xcassets */,
 				C8B5D8ED1B27304800DB1D9F /* LaunchScreen.xib */,
 				C842342A1B273CC6003A55B1 /* DrawView.swift */,
+				C8E78C521B4792C400F11EF8 /* yudati.jpg */,
 				C8B5D8E21B27304800DB1D9F /* Supporting Files */,
 			);
 			path = draw2;
@@ -200,6 +203,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C8B5D8EA1B27304800DB1D9F /* Main.storyboard in Resources */,
+				C8E78C531B4792C400F11EF8 /* yudati.jpg in Resources */,
 				C8B5D8EF1B27304800DB1D9F /* LaunchScreen.xib in Resources */,
 				C8B5D8EC1B27304800DB1D9F /* Images.xcassets in Resources */,
 			);

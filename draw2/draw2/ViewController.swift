@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import Social
 class ViewController: UIViewController {
+    var myComposeView:SLComposeViewController!
     private var btn1: UIButton!
     private var btn2: UIButton!
     private var btn3: UIButton!
     private var resetBtn: UIButton!
+    var btnCount:Int = 0
     var rectX:Int!
     var rectY:Int!
     let rect1num:[Int] = [105,305,505]
@@ -21,6 +24,7 @@ class ViewController: UIViewController {
     var rect1 = UIView()
     var rect2 = UIView()
     var rect3 = UIView()
+    var cover = UIView()
     var pushBtn1:Bool! = false
     var pushBtn2:Bool! = false
     var pushBtn3:Bool! = false
@@ -568,23 +572,31 @@ class ViewController: UIViewController {
         println("-----------------------------")
         if ary[0][center] == 1 && ary[1][center] == 2 && ary[2][center] == 3{
             println("good-bye world!")
-            createCover()
+            setCover()
+            timer.invalidate()
+            onPostToTwitter()
         }
         if ary[0][right] == 1 && ary[1][right] == 2 && ary[2][right] == 3{
             println("good-bye world!")
-            createCover()
+            setCover()
+            timer.invalidate()
+            onPostToTwitter()
         }
         
     }
-    func createCover(){
-        var cover = UIView()
+    func setCover(){
+    
+        self.view.addSubview(cover)
         cover.frame = CGRectMake(0,30,700, 500)
         cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.5)
         self.view.addSubview(cover)
+        cover.removeFromSuperview()
+    
         //if timer.valid == true{
-            timer.invalidate()
+        
             //sender.setTitle("Start Timer",forState:UIControlState.Normal)
         //}//sender.〜で値の受け渡しができる
+        
    
     }
 
@@ -626,10 +638,10 @@ class ViewController: UIViewController {
         resetBtn.frame = CGRectMake(0,0,200,30)
         resetBtn.backgroundColor = UIColor.whiteColor()
         resetBtn.layer.masksToBounds = true
-        resetBtn.setTitle("reset",forState:UIControlState.Normal)
+        resetBtn.setTitle("start",forState:UIControlState.Normal)
         resetBtn.setTitleColor(UIColor.redColor(),forState: UIControlState.Normal)
         resetBtn.layer.position = CGPoint(x:self.view.bounds.width-100,y:10)
-        resetBtn.addTarget(self, action:"resetAll:",forControlEvents: .TouchUpInside)
+        resetBtn.addTarget(self, action:"startAndResetAll:",forControlEvents: .TouchUpInside)
         self.view.addSubview(resetBtn)
         
         return ("Button set.")
@@ -700,11 +712,35 @@ class ViewController: UIViewController {
         printAry()
         setRects()
         setMoveCount()
-        setTimer()
+        setCover()
+        setTimer()//一番最後でなければならない？
+        
     }
 
-    func resetAll(sender:UIButton){
-        setAll()
+    func startAndResetAll(sender:UIButton){
+        btnCount++
+        println(btnCount)
+        switch btnCount{
+        case 1:
+            //timerを動かしてボタンにreset挿入
+            cnt = 0
+            timeLbl.text = ("Time:\(cnt)")
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:0.0,repeats:true)
+            
+
+            println(timer)
+            sender.setTitle("reset", forState:UIControlState.Normal)
+        case 2:
+            //timerを止めてReset,ボタンにstartを挿入
+            timer.invalidate()
+            cnt = 0
+            timeLbl.text = ("\(timer)")
+            sender.setTitle("start", forState:UIControlState.Normal)
+            btnCount = 0
+            setAll()
+        default:
+        break
+        }
     }
     
     func screenSize()->(String){
@@ -762,9 +798,9 @@ class ViewController: UIViewController {
         timeLbl.layer.position = CGPoint(x:self.view.bounds.width/2,y:10)
         self.view.backgroundColor = UIColor.cyanColor()
         self.view.addSubview(timeLbl)
-        cnt = 0
-        timeLbl.text = ("\(timer)")
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:nil,repeats:true)
+//        cnt = 0
+//        timeLbl.text = ("\(timer)")
+//        timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:nil,repeats:true)
     }
     
     func onUpdate(timer:NSTimer){
@@ -772,7 +808,23 @@ class ViewController: UIViewController {
         let str = "Time:".stringByAppendingFormat("%.1f",cnt)
         timeLbl.text = str
     }
-    
+    func onPostToTwitter(){
+        
+        let delay = 0.001 * Double(NSEC_PER_SEC)
+        let time  = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue(), {
+            //SLComposeViewContorollerのインスタンス化.
+            //ServiceTypeをTwitterに指定.
+            self.myComposeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+            
+            //投稿するテキストを指定.
+            self.myComposeView.setInitialText("時間:\(self.cnt)秒,移動回数:\(self.moveCount)回でlevel1をクリアしました!")
+            self.myComposeView.addImage(UIImage(named:"yudati.jpg"))
+            self.presentViewController(self.myComposeView, animated: true, completion: nil)
+        })
+        
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
