@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "draw2/ViewController.swift"
-            timestampString = "457680340.025938"
+            timestampString = "457680646.1624"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "727"
-            endingLineNumber = "727"
+            startingLineNumber = "735"
+            endingLineNumber = "735"
             landmarkName = "startAndResetAll(_:)"
             landmarkType = "5">
          </BreakpointContent>

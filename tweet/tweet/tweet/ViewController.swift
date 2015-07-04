@@ -54,7 +54,7 @@ class ViewController: UIViewController {
             self.myComposeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             
             //投稿するてキスを指定.
-            self.myComposeView.setInitialText("現在書いているコードが意味不明な記述でなぜか通っている時の顔.")
+            self.myComposeView.setInitialText("#夕立ちゃん困り顔ツイートアプリ")
             self.myComposeView.addImage(UIImage(named:"yudati.jpg"))
             self.presentViewController(self.myComposeView, animated: true, completion: nil)
         })

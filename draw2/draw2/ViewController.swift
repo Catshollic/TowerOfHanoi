@@ -590,7 +590,7 @@ class ViewController: UIViewController {
         cover.frame = CGRectMake(0,30,700, 500)
         cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.5)
         self.view.addSubview(cover)
-        cover.removeFromSuperview()
+        //cover.removeFromSuperview()
     
         //if timer.valid == true{
         
@@ -598,6 +598,13 @@ class ViewController: UIViewController {
         //}//sender.〜で値の受け渡しができる
         
    
+    }
+    func deleteCover(){
+        self.view.addSubview(cover)
+        cover.frame = CGRectMake(0,30,700, 500)
+        cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.5)
+        self.view.addSubview(cover)
+        cover.removeFromSuperview()
     }
 
     func createBtn()->String{
@@ -723,6 +730,7 @@ class ViewController: UIViewController {
         switch btnCount{
         case 1:
             //timerを動かしてボタンにreset挿入
+            deleteCover()
             cnt = 0
             timeLbl.text = ("Time:\(cnt)")
             timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:0.0,repeats:true)
