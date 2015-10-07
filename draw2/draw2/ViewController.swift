@@ -17,10 +17,10 @@ class ViewController: UIViewController {
     var btnCount:Int = 0
     var rectX:Int!
     var rectY:Int!
-    let rect1num:[Int] = [105,305,505]
-    let rect2num:[Int] = [80,280,480]
-    let rect3num:[Int] = [55,255,455]
-    let rectYnum:[Int] = [260,290,320]//[0][1][2]
+    let rect1num:[Int] = [75,265,455]
+    let rect2num:[Int] = [50,240,430]
+    let rect3num:[Int] = [27,215,405]
+    let rectYnum:[Int] = [210,240,270]//[0][1][2]
     var rect1 = UIView()
     var rect2 = UIView()
     var rect3 = UIView()
@@ -75,10 +75,10 @@ class ViewController: UIViewController {
         //self.view.addSubview(rect3)
         //rect1.removeFromSuperview()
         //rect1.tag = 1
-        println(rectX)
+        print(rectX)
         self.view.addSubview(rect1)
         addMoveCount()
-        println("done moveRect1")
+        print("done moveRect1")
         }
     func moveRect2(){
         
@@ -87,10 +87,10 @@ class ViewController: UIViewController {
         self.view.addSubview(rect2)
         //rect1.removeFromSuperview()
         //rect2.tag = 1
-        println(rectX)
+        print(rectX)
         self.view.addSubview(rect2)
         addMoveCount()
-        println("done moveRect2")
+        print("done moveRect2")
     }
     func moveRect3(){
         
@@ -99,10 +99,10 @@ class ViewController: UIViewController {
         self.view.addSubview(rect3)
         //rect3.removeFromSuperview()
         //rect3.tag = 1
-        println(rectX)
+        print(rectX)
         self.view.addSubview(rect3)
         addMoveCount()
-        println("done moveRect3")
+        print("done moveRect3")
     }
 
     //btn func
@@ -181,15 +181,15 @@ class ViewController: UIViewController {
             if (ary[i][left] != 0) {
                 search = i
                 //println("[\(search)][left]は\(ary[i][left]) can move")
-                println("動かす値の場所は[\(search)][left]")
+                print("動かす値の場所は[\(search)][left]")
             }else{
                 i++
-                println("can't move cantcount leftValue \(cantCount)")
+                print("can't move cantcount leftValue \(cantCount)")
                 cantCount++
                 //描画しない処理をする
                 if cantCount == blockNum{
                     search = blockNum
-                    println("\(search)なので移動できない")
+                    print("\(search)なので移動できない")
                 }
             }
         }
@@ -204,15 +204,15 @@ class ViewController: UIViewController {
             if (ary[i][center] != 0) {
                 search = i
                 //println("[\(search)][center]は\(ary[i][center]) can move")
-                println("動かす値の場所は[\(search)][center]")
+                print("動かす値の場所は[\(search)][center]")
             }else{
                 i++
-                println("can't move cantcount \(cantCount)")
+                print("can't move cantcount \(cantCount)")
                 cantCount++
                 //描画しない処理をする
                 if cantCount == blockNum{
                     search = blockNum
-                    println("\(search)なので移動できない")
+                    print("\(search)なので移動できない")
                 }
             }
         }
@@ -227,15 +227,15 @@ class ViewController: UIViewController {
             if (ary[i][right] != 0) {
                 search = i
                 //println("[\(search)][right]は\(ary[i][right]) can move")
-                println("動かす値の場所は[\(search)][right]")
+                print("動かす値の場所は[\(search)][right]")
             }else{
                 i++
-                println("can't move cantcount \(cantCount)")
+                print("can't move cantcount \(cantCount)")
                 cantCount++
                 //描画しない処理をする
                 if cantCount == blockNum{
                     search = blockNum
-                    println("\(search)なので移動できない")
+                    print("\(search)なので移動できない")
                 }
             }
         }
@@ -261,7 +261,7 @@ class ViewController: UIViewController {
     func checkRightValue(){
         var i:Int = 0
         while(blockNum != i){
-            println("\(i+1)列目 = \(ary[i][right]) ")
+            print("\(i+1)列目 = \(ary[i][right]) ")
             i++
         }//右の柱に何があるかをチェックする
     }//右の柱に何があるかをチェックする
@@ -276,15 +276,15 @@ class ViewController: UIViewController {
             if (ary[i][center] == 0) {
                 search = i
                 //println("[\(search)][center]は\(ary[i][center]) can move")
-                println("格納できる場所は[\(search)][center]")
+                print("格納できる場所は[\(search)][center]")
             }else{
                 i--
-                println("can't move cantcount center \(cantCount)")
+                print("can't move cantcount center \(cantCount)")
                 cantCount++
                 //描画しない処理をする
                 if cantCount == blockNum{
                     search = blockNum
-                    println("\(search)なので移動できない")
+                    print("\(search)なので移動できない")
                 }
             }
         }
@@ -299,15 +299,15 @@ class ViewController: UIViewController {
             if (ary[i][left] == 0) {
                 search = i
                 //println("[\(search)][left]は\(ary[i][left]) can move")
-                println("格納できる場所は[\(search)][left]")
+                print("格納できる場所は[\(search)][left]")
             }else{
                 i--
-                println("can't move cantcount \(cantCount)")
+                print("can't move cantcount \(cantCount)")
                 cantCount++
                 //描画しない処理をする
                 if cantCount == blockNum{
                     search = blockNum
-                    println("\(search)なので移動できない")
+                    print("\(search)なので移動できない")
                 }
             }
         }
@@ -319,15 +319,15 @@ class ViewController: UIViewController {
         var cantCount:Int = 0
         
         while search == -1{
-            println(ary[i][right])
+            print(ary[i][right])
             if (ary[i][right] == 0) {
                 //digRightValue = i
                 search = i
                 //println("[\(search)][right]は\(ary[i][right]) can move")
-                println("格納できる場所は[\(search)][right]")
+                print("格納できる場所は[\(search)][right]")
             }else{
                 i--
-                println("can't move cantcount \(cantCount)")
+                print("can't move cantcount \(cantCount)")
                 cantCount++
                 //描画しない処理をする
 //                if cantCount == blockNum{
@@ -351,7 +351,7 @@ class ViewController: UIViewController {
             ary[searchLeftValue()][left] = 0
             
         }else{
-            println("cannot move")
+            print("cannot move")
         }
         printAry()
         
@@ -366,7 +366,7 @@ class ViewController: UIViewController {
             ary[digRight()][right] = ary[searchLeftValue()][left]
             ary[searchLeftValue()][left] = 0
         }else{
-            println("cannot move")
+            print("cannot move")
         }
         printAry()
     }
@@ -381,7 +381,7 @@ class ViewController: UIViewController {
             ary[digLeft()][left] = ary[searchCenterValue()][center]
             ary[searchCenterValue()][center] = 0
             }else{
-            println("cannot move")
+            print("cannot move")
         }
         printAry()
     }
@@ -396,7 +396,7 @@ class ViewController: UIViewController {
             ary[searchCenterValue()][center] = 0
         }else{
         
-            println("cannot move")
+            print("cannot move")
             }
         printAry()
         
@@ -411,7 +411,7 @@ class ViewController: UIViewController {
             ary[digLeft()][left] = ary[searchRightValue()][right]
             ary[searchRightValue()][right] = 0
         }else{
-            println("cannot move")
+            print("cannot move")
         }
         printAry()
     }
@@ -426,7 +426,7 @@ class ViewController: UIViewController {
             ary[digCenter()][center] = ary[searchRightValue()][right]
             ary[searchRightValue()][right] = 0
         }else{
-            println("cannot move")
+            print("cannot move")
         }
         printAry()
     }
@@ -454,7 +454,6 @@ class ViewController: UIViewController {
             }
     }
     func moveLeftRightRect(){//左から真ん中に四角を移動させる
-        println(ary[searchLeftValue()][left])
         switch ary[searchLeftValue()][left]{//[0][center] == 1,[1][center] == 2,[2][center] == 3
         case 1:
             rectX = rect1num[right]
@@ -566,39 +565,24 @@ class ViewController: UIViewController {
             for j in 0...2 {
                 print("\(ary[i][j])")
             }
-            println()
             
         }
-        println("-----------------------------")
+        print("-----------------------------")
         if ary[0][center] == 1 && ary[1][center] == 2 && ary[2][center] == 3{
-            println("good-bye world!")
+            print("good-bye world!")
             setCover()
             timer.invalidate()
             onPostToTwitter()
         }
         if ary[0][right] == 1 && ary[1][right] == 2 && ary[2][right] == 3{
-            println("good-bye world!")
+            print("good-bye world!")
             setCover()
             timer.invalidate()
             onPostToTwitter()
         }
         
     }
-    func setCover(){
-    
-        self.view.addSubview(cover)
-        cover.frame = CGRectMake(0,30,700, 500)
-        cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.5)
-        self.view.addSubview(cover)
-        //cover.removeFromSuperview()
-    
-        //if timer.valid == true{
-        
-            //sender.setTitle("Start Timer",forState:UIControlState.Normal)
-        //}//sender.〜で値の受け渡しができる
-        
-   
-    }
+
     func deleteCover(){
         self.view.addSubview(cover)
         cover.frame = CGRectMake(0,30,700, 500)
@@ -611,10 +595,10 @@ class ViewController: UIViewController {
         //button1を生成
         btn1 = UIButton()//button作成
         btn1.tag = 1//buttonのtag設定
-        btn1.frame = CGRectMake(40,30,190,320)//buttonの場所
+        btn1.frame = CGRectMake(10,30,190,300)//buttonの場所
         btn1.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:0.1)//buttonの背景
         btn1.layer.masksToBounds = true
-        btn1.setTitle("btn1", forState: UIControlState.Normal)
+        btn1.setTitle(" ", forState: UIControlState.Normal)
         btn1.setTitleColor(UIColor.greenColor(), forState: UIControlState.Normal)
         btn1.addTarget(self, action:"btn1:",forControlEvents: .TouchUpInside)///buttonに機能btn1を
         self.view.addSubview(btn1)
@@ -622,10 +606,10 @@ class ViewController: UIViewController {
         //button2を生成
         btn2 = UIButton()
         btn2.tag = 2
-        btn2.frame = CGRectMake(240,30,190,320)
+        btn2.frame = CGRectMake(205,30,190,300)
         btn2.backgroundColor = UIColor(red:0.0,green:1.0,blue:0.0,alpha:0.1)
         btn2.layer.masksToBounds = true
-        btn2.setTitle("btn2",forState:UIControlState.Normal)
+        btn2.setTitle(" ",forState:UIControlState.Normal)
         btn2.setTitleColor(UIColor.blueColor(),forState: UIControlState.Normal)
         btn2.addTarget(self, action:"btn2:",forControlEvents: .TouchUpInside)//buttonに機能btn2をTouchUpInsideされた時に行う
         self.view.addSubview(btn2)
@@ -633,16 +617,16 @@ class ViewController: UIViewController {
         //button3を生成
         btn3 = UIButton()
         btn3.tag = 3
-        btn3.frame = CGRectMake(440,30,190,320)
+        btn3.frame = CGRectMake(400,30,190,300)
         btn3.backgroundColor = UIColor(red:0.0,green:0.0,blue:1.0,alpha:0.1)
         btn3.layer.masksToBounds = true
-        btn3.setTitle("btn3",forState:UIControlState.Normal)
+        btn3.setTitle(" ",forState:UIControlState.Normal)
         btn3.setTitleColor(UIColor.redColor(),forState: UIControlState.Normal)
         btn3.addTarget(self, action:"btn3:",forControlEvents: .TouchUpInside)
         self.view.addSubview(btn3)
         
         resetBtn = UIButton()
-        resetBtn.frame = CGRectMake(0,0,200,30)
+        resetBtn.frame = CGRectMake(0,0,160,30)
         resetBtn.backgroundColor = UIColor.whiteColor()
         resetBtn.layer.masksToBounds = true
         resetBtn.setTitle("start",forState:UIControlState.Normal)
@@ -657,6 +641,21 @@ class ViewController: UIViewController {
     }
     
     //start func
+    func setCover(){
+        
+        self.view.addSubview(cover)
+        cover.frame = CGRectMake(0,30,700, 500)
+        cover.backgroundColor = UIColor(red:0.1,green:0.0,blue:0.0,alpha:0.5)
+        self.view.addSubview(cover)
+        //cover.removeFromSuperview()
+        
+        //if timer.valid == true{
+        
+        //sender.setTitle("Start Timer",forState:UIControlState.Normal)
+        //}//sender.〜で値の受け渡しができる
+        
+        
+    }
     func setTitleBtn(){
         if pushBtn1 == true{
             btn1.setTitle("Where", forState: UIControlState.Normal)
@@ -680,18 +679,18 @@ class ViewController: UIViewController {
     func setRects(){
 
         //rect1描画
-        rect1.frame = CGRectMake(105,260,50,30)
+        rect1.frame = CGRectMake(75,210,50,30)
         rect1.backgroundColor = UIColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
         //rect1.tag = 1
         self.view.addSubview(rect1)
     
         //rect2描画
-        rect2.frame = CGRectMake(80,290,100,30)
+        rect2.frame = CGRectMake(50,240,100,30)
         rect2.backgroundColor = UIColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0)
         //rect2.tag = 1
         self.view.addSubview(rect2)
 
-        rect3.frame = CGRectMake(55,320, 150, 30)
+        rect3.frame = CGRectMake(27,270, 150, 30)
         rect3.backgroundColor = UIColor(red:1.0,green:0.0,blue:0.0,alpha:1.0)
         //rect1.tag = 1
         self.view.addSubview(rect3)
@@ -712,9 +711,9 @@ class ViewController: UIViewController {
     
     func setAll(){
         screenSize()
-        println(screenSize())
+        print(screenSize())
         createBtn()
-        println(createBtn())
+        print(createBtn())
         setValue()
         printAry()
         setRects()
@@ -726,7 +725,7 @@ class ViewController: UIViewController {
 
     func startAndResetAll(sender:UIButton){
         btnCount++
-        println(btnCount)
+        print(btnCount)
         switch btnCount{
         case 1:
             //timerを動かしてボタンにreset挿入
@@ -736,7 +735,7 @@ class ViewController: UIViewController {
             timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:0.0,repeats:true)
             
 
-            println(timer)
+            print(timer)
             sender.setTitle("reset", forState:UIControlState.Normal)
         case 2:
             //timerを止めてReset,ボタンにstartを挿入
@@ -757,8 +756,6 @@ class ViewController: UIViewController {
         let screenHeight = self.view.bounds.height
         var testDraw = DrawView(frame: CGRectMake(0, 0, screenWidth, screenHeight))
         self.view.addSubview(testDraw)
-        println("\(screenWidth)")
-        println("\(screenHeight)")
         return "ScreenSize set."
     }
     //screenSizeを取るclass
@@ -773,9 +770,8 @@ class ViewController: UIViewController {
     class func screenFrame() -> CGRect {
         return CGRectMake(0, 0, screenSize().width, screenSize().height)
     }
-    
     func setMoveCount(){
-        moveCountLbl = UILabel(frame:CGRectMake(0,0,200,30))
+        moveCountLbl = UILabel(frame:CGRectMake(0,0,180,30))
         moveCountLbl.backgroundColor = UIColor.blackColor()
         moveCountLbl.layer.masksToBounds = true
         moveCountLbl.layer.cornerRadius = 20.0
@@ -783,7 +779,7 @@ class ViewController: UIViewController {
         moveCountLbl.textColor = UIColor.whiteColor()
         moveCountLbl.shadowColor = UIColor.grayColor()
         moveCountLbl.textAlignment = NSTextAlignment.Center
-        moveCountLbl.layer.position = CGPoint(x:self.view.bounds.width/4,y:10)
+        moveCountLbl.layer.position = CGPoint(x:self.view.bounds.width/5,y:10)
         self.view.backgroundColor = UIColor.cyanColor()
         self.view.addSubview(moveCountLbl)
         moveCount = 0
@@ -793,7 +789,6 @@ class ViewController: UIViewController {
         moveCount += 1
         moveCountLbl.text = ("moveCount:\(moveCount)")
     }
-    
     func setTimer(){
         timeLbl = UILabel(frame:CGRectMake(0,0,200,30))
         timeLbl.backgroundColor = UIColor.blackColor()
@@ -810,7 +805,6 @@ class ViewController: UIViewController {
 //        timeLbl.text = ("\(timer)")
 //        timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:nil,repeats:true)
     }
-    
     func onUpdate(timer:NSTimer){
         cnt += 0.1
         let str = "Time:".stringByAppendingFormat("%.1f",cnt)
@@ -826,7 +820,7 @@ class ViewController: UIViewController {
             self.myComposeView = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
             
             //投稿するテキストを指定.
-            self.myComposeView.setInitialText("時間:\(self.cnt)秒,移動回数:\(self.moveCount)回でlevel1をクリアしました!")
+            self.myComposeView.setInitialText("時間:\(self.cnt)秒,移動回数:\(self.moveCount)回でlevel1をクリアしました! level1の最適解は7回です! #TowerOfHanoi")
             self.myComposeView.addImage(UIImage(named:"yudati.jpg"))
             self.presentViewController(self.myComposeView, animated: true, completion: nil)
         })

@@ -39,7 +39,7 @@ class ViewController: UIViewController {
       stopButton.addTarget(self,action:"onStopButtonClick:",forControlEvents:UIControlEvents.TouchUpInside)
         self.view.addSubview(stopButton)
     
-        timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:nil,repeats:true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.1,target:self,selector:"onUpdate:",userInfo:nil,repeats:false)
     }
     
     func onStopButtonClick(sender:UIButton){

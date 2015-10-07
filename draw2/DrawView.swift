@@ -10,8 +10,8 @@ import UIKit
 
 class DrawView: UIView {
     override func drawRect(rect: CGRect) {
-        var x:Int = 130
-        var y:Int = 100
+        var x:Int = 100//130
+        var y:Int = 50
         
         // UIBezierPath のインスタンス生成
         let pillarline = UIBezierPath()
@@ -29,7 +29,7 @@ class DrawView: UIView {
         for i in 1...3{
         pillarline.moveToPoint(CGPointMake(CGFloat(x),CGFloat(y)))//150,300
         pillarline.addLineToPoint(CGPointMake(CGFloat(x),CGFloat(y+250)))//150,100
-        x += 200
+        x += 190
         }
         UIColor.whiteColor().setStroke()
         pillarline.lineWidth = 5//default = 1
